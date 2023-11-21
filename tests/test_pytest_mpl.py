@@ -456,7 +456,8 @@ def test_results_always(tmp_path):
     test_file = tmp_path.joinpath('test.py')
     with open(test_file, 'w') as f:
         f.write(TEST_RESULTS_ALWAYS)
-    results_path = tmp_path.mkdir('results')
+    results_path = tmp_path / 'results'
+    results_path.mkdir(parents=True, exist_ok=True)
 
     code = call_pytest(['--mpl', test_file, '--mpl-results-always',
                         rf'--mpl-hash-library={hash_library}',
