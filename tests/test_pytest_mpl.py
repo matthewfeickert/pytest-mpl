@@ -120,9 +120,9 @@ def test_fail():
 """
 
 
-def test_fails(tmpdir):
+def test_fails(tmp_path):
 
-    test_file = tmpdir.join('test.py').strpath
+    test_file = tmp_path.join('test.py').strpath
     with open(test_file, 'w') as f:
         f.write(TEST_FAILING)
 
@@ -147,12 +147,12 @@ def test_output_dir():
 """
 
 
-def test_output_dir(tmpdir):
-    test_file = tmpdir.join('test.py').strpath
+def test_output_dir(tmp_path):
+    test_file = tmp_path.join('test.py').strpath
     with open(test_file, 'w') as f:
         f.write(TEST_OUTPUT_DIR)
 
-    output_dir = tmpdir.join('test_output_dir')
+    output_dir = tmp_path.join('test_output_dir')
 
     # When we run the test, we should get output images where we specify
     code = call_pytest([f'--mpl-results-path={output_dir}',
@@ -175,13 +175,13 @@ def test_gen():
 """
 
 
-def test_generate(tmpdir):
+def test_generate(tmp_path):
 
-    test_file = tmpdir.join('test.py').strpath
+    test_file = tmp_path.join('test.py').strpath
     with open(test_file, 'w') as f:
         f.write(TEST_GENERATE)
 
-    gen_dir = tmpdir.mkdir('spam').mkdir('egg').strpath
+    gen_dir = tmp_path.mkdir('spam').mkdir('egg').strpath
 
     # If we don't generate, the test will fail
     assert_pytest_fails_with(['--mpl', test_file], 'Image file not found for comparison test')
@@ -301,9 +301,9 @@ def test_hash_fails():
 """
 
 
-def test_hash_fails(tmpdir):
+def test_hash_fails(tmp_path):
 
-    test_file = tmpdir.join('test.py').strpath
+    test_file = tmp_path.join('test.py').strpath
     with open(test_file, 'w', encoding='ascii') as f:
         f.write(TEST_FAILING_HASH)
 
@@ -340,9 +340,9 @@ def test_hash_fail_hybrid():
 
 
 @pytest.mark.skipif(ftv != '261', reason="Incorrect freetype version for hash check")
-def test_hash_fail_hybrid(tmpdir):
+def test_hash_fail_hybrid(tmp_path):
 
-    test_file = tmpdir.join('test.py').strpath
+    test_file = tmp_path.join('test.py').strpath
     with open(test_file, 'w', encoding='ascii') as f:
         f.write(TEST_FAILING_HYBRID)
 
@@ -382,9 +382,9 @@ def test_hash_fails():
 
 
 @pytest.mark.skipif(ftv != '261', reason="Incorrect freetype version for hash check")
-def test_hash_fail_new_hashes(tmpdir):
+def test_hash_fail_new_hashes(tmp_path):
     # Check that the hash comparison fails even if a new hash file is requested
-    test_file = tmpdir.join('test.py').strpath
+    test_file = tmp_path.join('test.py').strpath
     with open(test_file, 'w', encoding='ascii') as f:
         f.write(TEST_FAILING_NEW_HASH)
 
@@ -393,7 +393,7 @@ def test_hash_fail_new_hashes(tmpdir):
                               f'--mpl-hash-library={fail_hash_library}'],
                              "doesn't match hash FAIL in library")
 
-    hash_file = tmpdir.join('new_hashes.json').strpath
+    hash_file = tmp_path.join('new_hashes.json').strpath
     # Assert that image comparison runs and fails
     assert_pytest_fails_with(['--mpl', test_file,
                               f'--mpl-hash-library={fail_hash_library}',
@@ -413,9 +413,9 @@ def test_hash_missing():
 """
 
 
-def test_hash_missing(tmpdir):
+def test_hash_missing(tmp_path):
 
-    test_file = tmpdir.join('test.py').strpath
+    test_file = tmp_path.join('test.py').strpath
     with open(test_file, 'w') as f:
         f.write(TEST_MISSING_HASH)
 
@@ -450,12 +450,12 @@ def test_unmodified(): return plot()
 
 
 @pytest.mark.skipif(not hash_library.exists(), reason="No hash library for this mpl version")
-def test_results_always(tmpdir):
+def test_results_always(tmp_path):
 
-    test_file = tmpdir.join('test.py').strpath
+    test_file = tmp_path.join('test.py').strpath
     with open(test_file, 'w') as f:
         f.write(TEST_RESULTS_ALWAYS)
-    results_path = tmpdir.mkdir('results')
+    results_path = tmp_path.mkdir('results')
 
     code = call_pytest(['--mpl', test_file, '--mpl-results-always',
                         rf'--mpl-hash-library={hash_library}',
@@ -554,9 +554,9 @@ class TestClassWithTestCase(TestCase):
     TEST_FAILING_CLASS_SETUP_METHOD,
     TEST_FAILING_UNITTEST_TESTCASE,
 ])
-def test_class_fail(code, tmpdir):
+def test_class_fail(code, tmp_path):
 
-    test_file = tmpdir.join('test.py').strpath
+    test_file = tmp_path.join('test.py').strpath
     with open(test_file, 'w') as f:
         f.write(code)
 
