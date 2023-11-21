@@ -573,7 +573,7 @@ class ImageComparison:
             return error_message
 
         # setuptools may put the baseline images in non-accessible places,
-        # copy to our tmpdir to be sure to keep them in case of failure
+        # copy to our tmp_path to be sure to keep them in case of failure
         baseline_image = (result_dir / f"baseline.{ext}").absolute()
         shutil.copyfile(baseline_image_ref, baseline_image)
 
