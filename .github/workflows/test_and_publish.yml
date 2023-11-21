@@ -2,13 +2,13 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
-    tags:
-      - 'v*'
-      - '!*dev*'
-      - '!*pre*'
-      - '!*post*'
+    # branches:
+    #   - main
+    # tags:
+    #   - 'v*'
+    #   - '!*dev*'
+    #   - '!*pre*'
+    #   - '!*post*'
   pull_request:
   # Allow manual runs through the web UI
   workflow_dispatch:
