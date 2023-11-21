@@ -181,7 +181,8 @@ def test_generate(tmp_path):
     with open(test_file, 'w') as f:
         f.write(TEST_GENERATE)
 
-    gen_dir = tmp_path.mkdir('spam').mkdir('egg')
+    gen_dir = tmp_path / 'spam' / 'egg'
+    gen_dir.mkdir(parents=True, exist_ok=True)
 
     # If we don't generate, the test will fail
     assert_pytest_fails_with(['--mpl', test_file], 'Image file not found for comparison test')
