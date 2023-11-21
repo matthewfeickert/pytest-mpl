@@ -122,7 +122,7 @@ def test_fail():
 
 def test_fails(tmp_path):
 
-    test_file = tmp_path.join('test.py').strpath
+    test_file = tmp_path.join('test.py')
     with open(test_file, 'w') as f:
         f.write(TEST_FAILING)
 
@@ -148,7 +148,7 @@ def test_output_dir():
 
 
 def test_output_dir(tmp_path):
-    test_file = tmp_path.join('test.py').strpath
+    test_file = tmp_path.join('test.py')
     with open(test_file, 'w') as f:
         f.write(TEST_OUTPUT_DIR)
 
@@ -177,11 +177,11 @@ def test_gen():
 
 def test_generate(tmp_path):
 
-    test_file = tmp_path.join('test.py').strpath
+    test_file = tmp_path.join('test.py')
     with open(test_file, 'w') as f:
         f.write(TEST_GENERATE)
 
-    gen_dir = tmp_path.mkdir('spam').mkdir('egg').strpath
+    gen_dir = tmp_path.mkdir('spam').mkdir('egg')
 
     # If we don't generate, the test will fail
     assert_pytest_fails_with(['--mpl', test_file], 'Image file not found for comparison test')
@@ -303,7 +303,7 @@ def test_hash_fails():
 
 def test_hash_fails(tmp_path):
 
-    test_file = tmp_path.join('test.py').strpath
+    test_file = tmp_path.join('test.py')
     with open(test_file, 'w', encoding='ascii') as f:
         f.write(TEST_FAILING_HASH)
 
@@ -342,7 +342,7 @@ def test_hash_fail_hybrid():
 @pytest.mark.skipif(ftv != '261', reason="Incorrect freetype version for hash check")
 def test_hash_fail_hybrid(tmp_path):
 
-    test_file = tmp_path.join('test.py').strpath
+    test_file = tmp_path.join('test.py')
     with open(test_file, 'w', encoding='ascii') as f:
         f.write(TEST_FAILING_HYBRID)
 
@@ -384,7 +384,7 @@ def test_hash_fails():
 @pytest.mark.skipif(ftv != '261', reason="Incorrect freetype version for hash check")
 def test_hash_fail_new_hashes(tmp_path):
     # Check that the hash comparison fails even if a new hash file is requested
-    test_file = tmp_path.join('test.py').strpath
+    test_file = tmp_path.join('test.py')
     with open(test_file, 'w', encoding='ascii') as f:
         f.write(TEST_FAILING_NEW_HASH)
 
@@ -393,7 +393,7 @@ def test_hash_fail_new_hashes(tmp_path):
                               f'--mpl-hash-library={fail_hash_library}'],
                              "doesn't match hash FAIL in library")
 
-    hash_file = tmp_path.join('new_hashes.json').strpath
+    hash_file = tmp_path.join('new_hashes.json')
     # Assert that image comparison runs and fails
     assert_pytest_fails_with(['--mpl', test_file,
                               f'--mpl-hash-library={fail_hash_library}',
@@ -415,7 +415,7 @@ def test_hash_missing():
 
 def test_hash_missing(tmp_path):
 
-    test_file = tmp_path.join('test.py').strpath
+    test_file = tmp_path.join('test.py')
     with open(test_file, 'w') as f:
         f.write(TEST_MISSING_HASH)
 
@@ -452,7 +452,7 @@ def test_unmodified(): return plot()
 @pytest.mark.skipif(not hash_library.exists(), reason="No hash library for this mpl version")
 def test_results_always(tmp_path):
 
-    test_file = tmp_path.join('test.py').strpath
+    test_file = tmp_path.join('test.py')
     with open(test_file, 'w') as f:
         f.write(TEST_RESULTS_ALWAYS)
     results_path = tmp_path.mkdir('results')
@@ -461,7 +461,7 @@ def test_results_always(tmp_path):
                         rf'--mpl-hash-library={hash_library}',
                         rf'--mpl-baseline-path={baseline_dir_abs}',
                         '--mpl-generate-summary=html,json,basic-html',
-                        rf'--mpl-results-path={results_path.strpath}'])
+                        rf'--mpl-results-path={results_path}'])
     assert code == 0  # hashes correct, so all should pass
 
     # assert files for interactive HTML exist
@@ -556,7 +556,7 @@ class TestClassWithTestCase(TestCase):
 ])
 def test_class_fail(code, tmp_path):
 
-    test_file = tmp_path.join('test.py').strpath
+    test_file = tmp_path.join('test.py')
     with open(test_file, 'w') as f:
         f.write(code)
 
