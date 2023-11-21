@@ -467,15 +467,15 @@ def test_results_always(tmp_path):
     assert code == 0  # hashes correct, so all should pass
 
     # assert files for interactive HTML exist
-    assert results_path.join('fig_comparison.html').exists()
-    assert results_path.join('styles.css').exists()
-    assert results_path.join('extra.js').exists()
+    assert results_path.joinpath('fig_comparison.html').exists()
+    assert results_path.joinpath('styles.css').exists()
+    assert results_path.joinpath('extra.js').exists()
 
-    comparison_file = results_path.join('fig_comparison_basic.html')
+    comparison_file = results_path.joinpath('fig_comparison_basic.html')
     with open(comparison_file, 'r') as f:
         html = f.read()
 
-    json_file = results_path.join('results.json')
+    json_file = results_path.joinpath('results.json')
     with open(json_file, 'r') as f:
         json_results = json.load(f)
 
@@ -497,7 +497,7 @@ def test_results_always(tmp_path):
 
         for image_type in ['baseline', 'result-failed-diff', 'result']:
             image = f'{test_name}/{image_type}.png'
-            image_exists = results_path.join(*image.split('/')).exists()
+            image_exists = results_path.joinpath(*image.split('/')).exists()
             json_image_key = f"{image_type.split('-')[-1]}_image"
             if image_type in exists:  # assert image so pytest prints it on error
                 assert image and image_exists
