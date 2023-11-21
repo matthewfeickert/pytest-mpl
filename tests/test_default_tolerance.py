@@ -12,7 +12,7 @@ def baseline_image(tmp_path_factory):
     image = Image.open(path)
     draw = ImageDraw.Draw(image)
     draw.rectangle(((0, 0), (100, 100)), fill="red")
-    output = Path(tmp_path_factory.mktemp("data").join(f"{TEST_NAME}.png"))
+    output = tmp_path_factory.mktemp("data").joinpath(f"{TEST_NAME}.png")
     image.save(output)
     return output
 
